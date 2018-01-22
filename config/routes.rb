@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'welcome/about'
   
+  get 'welcome/faq'
+  
   root 'welcome#index'
   # or using root({to: 'welcome#index'}) above we used is a implied hash syntax
 
