@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  
+  resources :posts
+
   get 'welcome/contact'
 
-  get 'welcome/index'
-
-  get 'welcome/about'
+  get 'about' => 'welcome#about'
   
   get 'welcome/faq'
   
   root 'welcome#index'
+  
   # or using root({to: 'welcome#index'}) above we used is a implied hash syntax
 
   # The priority is based upon order of creation: first created -> highest priority.
