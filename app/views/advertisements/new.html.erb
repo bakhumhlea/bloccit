@@ -1,0 +1,16 @@
+<h1>Create your Advertisement</h1>
+<%= form_for @advertisement do |ads| %>
+
+    <div class="form-group">
+        <%= ads.label "Your advertise title" %>
+        <%= ads.text_field :title,  class: 'form-control', placeholder: "Ads title" %>
+    </div>
+    <div class="form-group">
+        <%= ads.label "Advertise Content" %>
+        <%= ads.text_area :body,  class: 'form-control', placeholder: "Ads content" %>
+    </div>
+    <div class="form-group">
+        <%= ads.submit "Create!", class: 'btn btn-success' %>
+    </div>
+
+<% end %>

@@ -1,0 +1,6 @@
+<h1>All Ads on Bloccit</h1>
+<% @advertisements.each do |ads| %>
+    <h4 class="media-heading">
+        <%= link_to ads.title, ads%>
+    </h4>
+<% end %>
