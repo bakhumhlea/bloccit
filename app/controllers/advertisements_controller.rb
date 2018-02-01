@@ -13,9 +13,9 @@ class AdvertisementsController < ApplicationController
 
   def create
     @ads = Advertisement.new
-    @ads.title = params[:post][:title]
-    @ads.body = params[:post][:body]
-    @ads.price = params[:post][:price]
+    @ads.title = params[:advertisement][:title]
+    @ads.body = params[:advertisement][:body]
+    @ads.price = params[:advertisement][:price]
     
     if @ads.save
       #display a success message using flash[:notice]

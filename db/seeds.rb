@@ -23,7 +23,26 @@ end
     )
 end
 
+23.times do
+    Question.create!(
+        title: RandomData.random_sentence,
+        body: RandomData.random_paragraph,
+        resolved: false
+    ) 
+end
+
+questions = Question.all
+
+40.times do
+    Answer.create!(
+        question: questions.sample,
+        body: RandomData.random_paragraph
+    ) 
+end
+
 puts "Seed finished"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} ads created"
+puts "#{Question.count} questions created"
+puts "#{Answer.count} answers created"
