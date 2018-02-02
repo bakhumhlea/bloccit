@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
 
-  resources :advertisements
+  ##resources :topics
 
-  resources :posts
+  ##resources :posts
+  
+  resources :topics do
+  ## this is called nesting!
+     resources :posts, except: [:index]
+     ## This nests the post routes under the topic routes.
+  end
   
   resources :questions
+  
+  resources :advertisements
 
   get 'welcome/contact'
 
