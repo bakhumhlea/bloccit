@@ -119,7 +119,7 @@ RSpec.describe PostsController, type: :controller do
             ##expect(response).to redirect_to my_post
             
             put :update, topic_id: my_topic.id, id:my_post.id, post: {title: new_title, body: new_body}
-            expect(response).to redirect_to [topic_id, my_post]
+            expect(response).to redirect_to [my_topic, my_post]
         end
     end
     
