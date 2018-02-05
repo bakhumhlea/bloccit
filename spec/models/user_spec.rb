@@ -36,4 +36,11 @@ RSpec.describe User, type: :model do
         end
     
     end
+    describe "capitalized name" do
+        it "user name should be capitalized" do
+            user.name = "anthony martial"
+            user.save
+            expect(user.name).to eq "Anthony Martial"
+        end
+    end
 end
