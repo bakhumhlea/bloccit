@@ -26,10 +26,17 @@ end
     )
 end
 posts = Post.all
+sponsoredposts = SponsoredPost.all
 
 50.times do
     Comment.create!(
         post: posts.sample,
+        body: RandomData.random_paragraph
+    )
+end
+50.times do
+    Comment.create!(
+        sponsored_post: sponsoredposts.sample,
         body: RandomData.random_paragraph
     )
 end
