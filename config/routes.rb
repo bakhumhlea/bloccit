@@ -11,7 +11,7 @@ Rails.application.routes.draw do
      ## This nests the post routes under the topic routes.
   end
   
-  resources :user, only: [:new, :create]
+  resources :users, only: [:new, :create]
   
   resources :questions
   
