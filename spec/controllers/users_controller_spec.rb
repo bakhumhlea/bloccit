@@ -26,14 +26,14 @@ RSpec.describe UsersController, type: :controller do
             expect(response).to have_http_status(:redirect)
         end
     end
-        it "creates a new user" do
-            expect{
-                post :create, user: new_user_attributes
-            }.to change(User, :count).by(1)
-        end
+    it "creates a new user" do
+        expect{
+            post :create, user: new_user_attributes
+        }.to change(User, :count).by(1)
+    end
     it "sets user name properly" do
         post :create, user: new_user_attributes
-        expect(assigns(:user).name).to eq new_user_attributes[:name]
+        expect(assigns(:user).name).to eq new_user_attributes[:name].split(' ').each{|w| w.capitalize!}.join(' ')
     end
     it "sets user email properly" do
         post :create, user: new_user_attributes
@@ -46,5 +46,15 @@ RSpec.describe UsersController, type: :controller do
     it "sets user password_confirmation properly" do
         post :create, user: new_user_attributes
         expect(assigns(:user).password_confirmation).to eq new_user_attributes[:password_confirmation]
+    end
+    describe "confirmation form" do
+        it "has http status" do
+            get :confirm, user: new_user_attributes
+            expect(response).to have_http_status(:success)
+        end
+        it "renders #confirm view" do
+            get :confirm, user: new_user_attributes
+            expect(response).to render_template :confirm
+        end
     end
 end
