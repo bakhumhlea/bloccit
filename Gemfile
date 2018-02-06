@@ -20,6 +20,7 @@ group :development, :test do
   gem 'shoulda'
 end
 
+gem 'gravtastic'
 gem 'bootstrap-sass'
 # Used for encrypting User passwords
 gem 'bcrypt'
