@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+    
     let(:new_user_attributes) do
         {
          name: "BlocHead",
@@ -9,6 +10,7 @@ RSpec.describe UsersController, type: :controller do
          password_confirmation: "blochead"
         }
     end
+    
     describe "GET new" do
         it "returns http success" do
             get :new
@@ -20,6 +22,7 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:user)).to_not be_nil
         end
     end
+    
     describe "POST create" do
         it "returns an http redirect" do
             post :create, user: new_user_attributes
@@ -47,6 +50,11 @@ RSpec.describe UsersController, type: :controller do
         post :create, user: new_user_attributes
         expect(assigns(:user).password_confirmation).to eq new_user_attributes[:password_confirmation]
     end
+    it "logs the user in after sign up" do
+        post :create, user: new_user_attributes
+        expect(session[:user_id]).to eq assigns(:user).id
+    end
+     
     describe "confirmation form" do
         it "has http status" do
             get :confirm, user: new_user_attributes
