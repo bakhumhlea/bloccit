@@ -39,7 +39,7 @@ class TopicsController < ApplicationController
         end
     end
     def destroy
-     @topic = Topic.find(params[:id])
+        @topic = Topic.find(params[:id])
      
         if @topic.destroy
             flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
@@ -48,6 +48,12 @@ class TopicsController < ApplicationController
             flash.now[:alert] = "There was an error deleting the topic."
             render :show
         end
+    end
+    
+    def order
+        @Post = Post.all
+        @Post.unscoped
+        @Post.ordered_by_title
     end
     
     private
