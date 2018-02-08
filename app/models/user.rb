@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+    has_many :posts
+    has_many :sponsored_posts
     before_save { self.name = name.split(' ').each{|w| w.capitalize! }.join(' ') if name.present? }
     before_save { self.email = email.downcase if email.present? }
     validates :name, length: {minimum: 1, maximum: 100 }, presence: true
@@ -12,5 +14,4 @@ class User < ActiveRecord::Base
     
     # #6
     has_secure_password
-    
 end
