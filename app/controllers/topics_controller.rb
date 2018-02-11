@@ -1,10 +1,19 @@
 class TopicsController < ApplicationController
+    
     def index
         @topics = Topic.all
     end
     
     def show
         @topic = Topic.find(params[:id])
+        
+        if params[:order] == 'by_title'
+            Post.unscoped { Post.ordered_by_title }
+        elsif @post == 'by_oldest_post'
+            Post.unscoped { Post.ordered_by_reverse_created_at }
+        else
+            @topic.posts
+        end
     end
     
     def new
@@ -49,16 +58,31 @@ class TopicsController < ApplicationController
             render :show
         end
     end
-    
+    #order method is not include on the lesson I try to create sort by title button
+    #but can't figure it out (yet)
     def order
-        @Post = Post.all
-        @Post.unscoped
-        @Post.ordered_by_title
+        @post = Post.all
+        @post.unscoped
+        @post.ordered_by_title
     end
     
+    before_action :require_sign_in, except: [:index, :show]
+        #translate: before any :action do 'require_sign_in' method except :index and :show action
+        #if guest users try to do actions
+    before_action :authorize_user, except: [:index, :show]
+        #translate: before any :action do 'authorize_user' method except :index and :show action
+        #if non-admin try to do actions
+        
     private
     
     def topic_params
         params.require(:topic).permit(:name, :description, :public)
+    end
+    
+    def authorize_user
+        unless current_user.admin?
+            flash[:alert] = "Only admin can do that!"
+            redirect_to topics_path
+        end
     end
 end

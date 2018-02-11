@@ -78,14 +78,24 @@ questions = Question.all
     ) 
 end
 
-user = User.first
-user.update_attributes!(
-    email: 'bakhumhlea@hotmail.com',
-    password: 'martial11'
+admin = User.create!(
+    name:     'Admin User',
+    email:    'admin@example.com',
+    password: 'helloworld',
+    role:     'admin'
+)
+
+
+member = User.create!(
+    name:     'Member User',
+    email:    'member@example.com',
+    password: 'helloworld'
 )
 
 puts "Seed finished"
 puts "#{User.count} users created"
+puts "#{admin.name} was created"
+puts "#{member.name} was created"
 puts "#{Topic.count} topics created"
 puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Post.count} posts created"
