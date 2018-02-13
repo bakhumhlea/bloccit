@@ -13,36 +13,9 @@
       <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this topic?' } %>
      <% end %>
      
-     <% @topic.sponsored_posts.each do |post| %>
-       <div class="media">
-         <div class="media-body">
-           <h4 class="media-heading">
-             <%= link_to post.title, topic_sponsored_post_path(@topic, post) %>
-           </h4>
-           <span style="color:red;">!Sponsored!</span>
-           <small>
-             submitted <%= time_ago_in_words(post.created_at) %> ago <br>
-             by <%= post.user.name %><br>
-             <%= post.comments.count %> Comments
-           </small>
-         </div>
-       </div>
-     <% end %>
+     <%= render @topic.sponsored_posts %>
      
-     <% @topic.posts.each do |post| %>
-       <div class="media">
-         <div class="media-body">
-           <h4 class="media-heading">
-             <%= link_to post.title, topic_post_path(@topic, post) %>
-           </h4>
-           <small>
-             submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
-             by <%= post.user.name %><br>
-             <%= post.comments.count %> Comments
-           </small>
-         </div>
-       </div>
-     <% end %>
+     <%= render @topic.posts %>
      
    </div>
    <% if current_user %>
