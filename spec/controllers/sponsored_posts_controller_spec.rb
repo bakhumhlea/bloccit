@@ -1,10 +1,16 @@
 require 'rails_helper'
+include RandomData
+include SessionsHelper
 
 RSpec.describe SponsoredPostsController, type: :controller do
-  
+  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
   let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
-  let(:my_sponsored_post) { my_topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_price) }
-
+  let(:my_sponsored_post) { my_topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_price, user: my_user) }
+  
+  before do
+    create_session(my_user)
+  end
+  
   describe "GET #show" do
     it "returns http success" do
         get :show, topic_id: my_topic.id, id: my_sponsored_post.id
@@ -39,7 +45,7 @@ RSpec.describe SponsoredPostsController, type: :controller do
   
   describe "SPONSORED POST #create" do
     it "increase sponsored post by 1" do
-      expect{post :create, topic_id: my_topic.id, sponsored_post: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_price}}.to change(SponsoredPost,:count).by(1)
+      expect{post :create, topic_id: my_topic.id, sponsored_post: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_price}}.to change(SponsoredPost, :count).by(1)
     end
     
     it "assigns the new post to @sponsored_post" do

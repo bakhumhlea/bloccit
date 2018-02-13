@@ -2,10 +2,16 @@
 
 <div class="row">
    <div class="col-md-8">
-     <p><%= @sponsored_post.body %></p>
-   </div>
-   <div class="col-md-4">
-     <%= link_to "Edit", edit_topic_sponsored_post_path(@sponsored_post.topic, @sponsored_post), class: 'btn btn-success' %>
-     <%= link_to "Delete Post", [@sponsored_post.topic, @sponsored_post], method: :delete, class: 'btn btn-danger',data: {confirm: 'Are your sure you want to delete this post?'} %>
+      <p><%= @sponsored_post.body %></p>
+      <%= link_to "Edit", edit_topic_sponsored_post_path(@sponsored_post.topic, @sponsored_post), class: 'btn btn-success' %>
+      <%= link_to "Delete Post", [@sponsored_post.topic, @sponsored_post], method: :delete, class: 'btn btn-danger',data: {confirm: 'Are your sure you want to delete this post?'} %>
+         <div>
+            <!--render comment using partial--!>
+            <h3>Comments</h3>
+            <%= render @sponsored_post.comments %>
+         </div>
+         <% if current_user %>
+            <%= render 'comments/form', comment: Comment.new, post: @sponsored_post %>
+         <% end %>
    </div>
 </div>

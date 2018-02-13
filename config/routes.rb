@@ -6,9 +6,16 @@ Rails.application.routes.draw do
   
   resources :topics do
   ## this is called nesting!
-     resources :posts, except: [:index]
-     resources :sponsored_posts, except: [:index]
-     ## This nests the post routes under the topic routes.
+      resources :posts, except: [:index] 
+      resources :sponsored_posts, except: [:index]
+      ## This nests the post routes under the topic routes.
+  end
+  
+  resources :posts, only: [] do
+    resources :comments, only: [:create, :destroy]
+  end
+  resources :sponsored_posts, only: [] do
+    resources :comments, only: [:create, :destroy]
   end
   
   resources :users, only: [:new, :create]

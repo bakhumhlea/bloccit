@@ -272,6 +272,7 @@ RSpec.describe TopicsController, type: :controller do
             end
         end
     end
+    
     context "admin moderator" do
         before do
             user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld", role: :moderator)
@@ -364,7 +365,7 @@ RSpec.describe TopicsController, type: :controller do
         describe "DELETE destroy" do
             it "returns http success" do
                 delete :destroy, {id: my_topic.id}
-                expect(response).to redirect_to my_topic
+                expect(response).to redirect_to(topics_path)
             end
         end
     end
