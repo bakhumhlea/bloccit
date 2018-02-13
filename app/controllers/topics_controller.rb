@@ -19,6 +19,7 @@ class TopicsController < ApplicationController
     def new
        @topic = Topic.new
     end
+    
     def create
         @topic = Topic.new(topic_params)
         
@@ -69,10 +70,11 @@ class TopicsController < ApplicationController
     before_action :require_sign_in, except: [:index, :show]
         #translate: before any :action do 'require_sign_in' method except :index and :show action
         #if guest users try to do actions
-    before_action :authorize_user, except: [:index, :show]
+    before_action :authorize_moderator, only: [:edit, :update]
+    before_action :authorize_user, except: [:index, :show, :edit, :update]
         #translate: before any :action do 'authorize_user' method except :index and :show action
         #if non-admin try to do actions
-        
+
     private
     
     def topic_params
@@ -85,4 +87,12 @@ class TopicsController < ApplicationController
             redirect_to topics_path
         end
     end
+    
+    def authorize_moderator
+        unless current_user.admin? || current_user.moderator?
+            flash[:alert] = "Only admin can do that!"
+            redirect_to topics_path
+        end
+    end
+    
 end

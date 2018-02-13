@@ -18,7 +18,7 @@ end
 
 topics = Topic.all
 
-50.times do
+15.times do
     SponsoredPost.create!(
         user: users.sample,
         title: RandomData.random_sentence,
@@ -91,11 +91,18 @@ member = User.create!(
     email:    'member@example.com',
     password: 'helloworld'
 )
+moderator = User.create!(
+    name:     'Moderator!',
+    email:    'moderator@bloccit.com',
+    password: 'helloworld',
+    role:     'moderator'
+)
 
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{admin.name} was created"
 puts "#{member.name} was created"
+puts "#{moderator.name} was created"
 puts "#{Topic.count} topics created"
 puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Post.count} posts created"

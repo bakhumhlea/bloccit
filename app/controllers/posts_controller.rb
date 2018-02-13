@@ -1,8 +1,5 @@
 class PostsController < ApplicationController
   
-  before_action :require_sign_in, except: :show
-  before_action :authorize_user, except: [:show, :create, :new]
-  
   def show
     @post = Post.find(params[:id])
   end
@@ -58,6 +55,11 @@ class PostsController < ApplicationController
       render :show
     end
   end
+  
+  before_action :require_sign_in, except: :show
+  before_action :authorize_moderator, only: [:edit, :update]
+  before_action :authorize_user, except: [:show, :create, :new, :edit, :update]
+
   private
  
   def post_params
@@ -67,6 +69,13 @@ class PostsController < ApplicationController
   def authorize_user
     post = Post.find(params[:id])
     unless current_user == post.user || current_user.admin?
+      flash[:alert] = "Only admin can proceed that action!"
+      redirect_to [post.topic, post]
+    end
+  end
+  def authorize_moderator
+    post = Post.find(params[:id])
+    unless current_user == post.user || current_user.admin? || current_user.moderator?
       flash[:alert] = "Only admin can proceed that action!"
       redirect_to [post.topic, post]
     end
