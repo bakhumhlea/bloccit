@@ -1,5 +1,13 @@
 class TopicsController < ApplicationController
     
+    before_action :require_sign_in, except: [:index, :show]
+        #translate: before any :action do 'require_sign_in' method except :index and :show action
+        #if guest users try to do actions
+    before_action :authorize_moderator, only: [:edit, :update]
+    before_action :authorize_user, except: [:index, :show, :edit, :update]
+        #translate: before any :action do 'authorize_user' method except :index and :show action
+        #if non-admin try to do actions
+    
     def index
         @topics = Topic.all
     end
@@ -48,6 +56,7 @@ class TopicsController < ApplicationController
             render :edit
         end
     end
+    
     def destroy
         @topic = Topic.find(params[:id])
      
@@ -59,21 +68,6 @@ class TopicsController < ApplicationController
             render :show
         end
     end
-    #order method is not include on the lesson I try to create sort by title button
-    #but can't figure it out (yet)
-    def order
-        @post = Post.all
-        @post.unscoped
-        @post.ordered_by_title
-    end
-    
-    before_action :require_sign_in, except: [:index, :show]
-        #translate: before any :action do 'require_sign_in' method except :index and :show action
-        #if guest users try to do actions
-    before_action :authorize_moderator, only: [:edit, :update]
-    before_action :authorize_user, except: [:index, :show, :edit, :update]
-        #translate: before any :action do 'authorize_user' method except :index and :show action
-        #if non-admin try to do actions
 
     private
     
@@ -82,16 +76,18 @@ class TopicsController < ApplicationController
     end
     
     def authorize_user
+        topic = Topic.find(params[:id])
         unless current_user.admin?
             flash[:alert] = "Only admin can do that!"
-            redirect_to topics_path
+            redirect_to topic
         end
     end
     
     def authorize_moderator
+        topic = Topic.find(params[:id])
         unless current_user.admin? || current_user.moderator?
             flash[:alert] = "Only admin can do that!"
-            redirect_to topics_path
+            redirect_to topic
         end
     end
     

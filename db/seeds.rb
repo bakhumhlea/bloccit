@@ -19,23 +19,28 @@ end
 topics = Topic.all
 
 15.times do
-    SponsoredPost.create!(
+    sponsored_post = SponsoredPost.create!(
         user: users.sample,
         title: RandomData.random_sentence,
         body: RandomData.random_paragraph,
         price: RandomData.random_price,
         topic: topics.sample
     )
+    sponsored_post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+    rand(1..5).times { sponsored_post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
  
 50.times do
-    Post.create!(
+    post = Post.create!(
         user: users.sample,
         topic:  topics.sample,
         title: RandomData.random_sentence,
         body: RandomData.random_paragraph
     )
+    post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+    rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
+
 posts = Post.all
 sponsoredposts = SponsoredPost.all
 
@@ -112,3 +117,4 @@ puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} ads created"
 puts "#{Question.count} questions created"
 puts "#{Answer.count} answers created"
+puts "#{Vote.count} votes created"

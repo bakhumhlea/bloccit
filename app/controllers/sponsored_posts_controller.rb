@@ -1,4 +1,9 @@
 class SponsoredPostsController < ApplicationController
+  
+  before_action :require_sign_in, except: :show
+  before_action :authorize_moderator, only: [:edit, :update]
+  before_action :authorize_user, except: [:show, :create, :new, :edit, :update]
+
   def show
     @sponsored_post = SponsoredPost.find(params[:id])
   end
@@ -55,5 +60,22 @@ class SponsoredPostsController < ApplicationController
       render :show
     end
     
+  end
+  
+  private
+  
+  def authorize_user
+    sponsored_post = SponsoredPost.find(params[:id])
+    unless current_user == sponsored_post.user || current_user.admin?
+      flash[:alert] = "Only admin can proceed that action!"
+      redirect_to [sponsored_post.topic, sponsored_post]
+    end
+  end
+  def authorize_moderator
+    sponsored_post = Post.find(params[:id])
+    unless current_user == sponsored_post.user || current_user.admin? || current_user.moderator?
+      flash[:alert] = "Only admin can proceed that action!"
+      redirect_to [sponsored_post.topic, sponsored_post]
+    end
   end
 end

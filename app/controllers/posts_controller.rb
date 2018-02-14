@@ -1,5 +1,9 @@
 class PostsController < ApplicationController
   
+  before_action :require_sign_in, except: :show
+  before_action :authorize_moderator, only: [:edit, :update]
+  before_action :authorize_user, except: [:show, :create, :new, :edit, :update]
+  
   def show
     @post = Post.find(params[:id])
   end
@@ -56,10 +60,6 @@ class PostsController < ApplicationController
     end
   end
   
-  before_action :require_sign_in, except: :show
-  before_action :authorize_moderator, only: [:edit, :update]
-  before_action :authorize_user, except: [:show, :create, :new, :edit, :update]
-
   private
  
   def post_params

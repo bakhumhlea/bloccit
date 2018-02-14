@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-    has_many :posts
-    has_many :sponsored_posts
-    has_many :comments
+    has_many :posts, dependent: :destroy
+    has_many :sponsored_posts, dependent: :destroy
+    has_many :comments, dependent: :destroy
+    has_many :votes, dependent: :destroy
     
     before_save { self.name = name.split(' ').each{|w| w.capitalize! }.join(' ') if name.present? }
     before_save { self.email = email.downcase if email.present? }
