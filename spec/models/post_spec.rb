@@ -76,5 +76,10 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq (old_rank - 1)
       end
     end
+    describe "#create_vote" do
+      it "creates up vote after post was created" do
+        expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
+      end
+    end
   end
 end
