@@ -7,7 +7,7 @@
    <small>
      submitted <%= time_ago_in_words(sponsored_post.created_at) %> ago <br>
      by <%= sponsored_post.user.name %><br>
-     <%= sponsored_post.comments.count %> Comments
+     <%= sponsored_post.comments.count %> Comments, Rank: <%= sponsored_post.rank %>
    </small>
  </div>
 </div>

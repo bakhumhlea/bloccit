@@ -27,7 +27,7 @@ topics = Topic.all
         topic: topics.sample
     )
     sponsored_post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
-    rand(1..5).times { sponsored_post.votes.create!(value: [-1, 1].sample, user: users.sample) }
+    rand(3..10).times { sponsored_post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
  
 50.times do
@@ -38,7 +38,7 @@ end
         body: RandomData.random_paragraph
     )
     post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
-    rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
+    rand(3..10).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
 end
 
 posts = Post.all

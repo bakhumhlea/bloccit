@@ -1,5 +1,13 @@
-<div class="vote-arrows pull-left">
-    <div><%= link_to " ", '#', class: 'glyphicon glyphicon-chevron-up' %></div>
-    <div><strong><%= post.points %></strong></div>
-    <div><%= link_to " ", '#', class: 'glyphicon glyphicon-chevron-down' %></div>
-</div>
+<% if post == @post && current_user %>
+    <div class="vote-arrows pull-left">
+        <div><%= link_to " ", post_up_vote_path(post), class: 'glyphicon glyphicon-chevron-up', method: :post %></div>
+        <div><strong><%= post.points %></strong></div>
+        <div><%= link_to " ", post_down_vote_path(post), class: 'glyphicon glyphicon-chevron-down', method: :post %></div>
+    </div>
+<% elsif post == @sponsored_post && current_user %>
+    <div class="vote-arrows pull-left">
+        <div><%= link_to " ", sponsored_post_up_vote_path(post), class: 'glyphicon glyphicon-chevron-up', method: :post %></div>
+        <div><strong><%= post.points %></strong></div>
+        <div><%= link_to " ", sponsored_post_down_vote_path(post), class: 'glyphicon glyphicon-chevron-down', method: :post %></div>
+    </div>
+<% end %>

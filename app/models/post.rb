@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
     has_many :votes, dependent: :destroy
     
     ##The default_scope will order all posts by their created_at date, in descending order(DESC)
-    default_scope { order('created_at DESC') }
+    default_scope { order('rank DESC') }
     
     def self.ordered_by_title
         order('title ASC')
@@ -31,5 +31,11 @@ class Post < ActiveRecord::Base
     
     def points
         votes.sum(:value)
+    end
+    
+    def update_rank
+        age_in_days = (created_at - Time.new(1970,1,1)) / 1.day.seconds
+        new_rank = points + age_in_days
+        update_attribute(:rank, new_rank)
     end
 end
