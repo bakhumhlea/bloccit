@@ -2,7 +2,7 @@ class SponsoredPostsController < ApplicationController
   
   before_action :require_sign_in, except: :show
   before_action :authorize_moderator, only: [:edit, :update]
-  before_action :authorize_user, except: [:show, :create, :new, :edit, :update]
+  before_action :authorize_user, except: [:show, :create, :new, :edit, :update, :delete]
 
   def show
     @sponsored_post = SponsoredPost.find(params[:id])
