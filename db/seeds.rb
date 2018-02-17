@@ -105,6 +105,12 @@ moderator = User.create!(
     role:     'moderator'
 )
 
+me = User.create!(
+    name:     'Tatuu',
+    email:    'slumhumhlea@gmail.com',
+    password: '123456789'
+)
+
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{admin.name} was created"
@@ -118,3 +124,4 @@ puts "#{Advertisement.count} ads created"
 puts "#{Question.count} questions created"
 puts "#{Answer.count} answers created"
 puts "#{Vote.count} votes created"
+puts "#{me.name} was created"

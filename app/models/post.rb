@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
     belongs_to :user
     has_many :comments, dependent: :destroy
     has_many :votes, dependent: :destroy
+    has_many :favorites, dependent: :destroy
+    
     after_create :create_vote
     
     ##The default_scope will order all posts by their created_at date, in descending order(DESC)

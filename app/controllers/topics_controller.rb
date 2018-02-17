@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
         #translate: before any :action do 'require_sign_in' method except :index and :show action
         #if guest users try to do actions
     before_action :authorize_moderator, only: [:edit, :update]
-    before_action :authorize_user, except: [:index, :show, :edit, :update, :destroy]
+    before_action :authorize_user, except: [:index, :show, :edit, :update]
         #translate: before any :action do 'authorize_user' method except :index and :show action
         #if non-admin try to do actions
     
