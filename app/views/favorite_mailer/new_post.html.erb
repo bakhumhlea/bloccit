@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    </head>
+    <body>
+        <h1>You have created new post!</h1>
+        <h2>Post title: "<%= @post.title %>"</h2>
+        <small>
+            at: <%= @post.created_at %>
+        </small>
+        <p>
+            <%= @post.body %>
+        </p>
+        <p>
+            <%= link_to "View your Post on Bloccit", topic_post_url(@post.topic, @post) %>
+        </p>
+    </body>
+</html>

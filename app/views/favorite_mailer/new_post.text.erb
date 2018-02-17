@@ -1,0 +1,7 @@
+You have created new post!
+Post title: "<%= @post.title %>"
+at: <%= @post.created_at %>
+
+<%= @post.body %>
+
+View on Bloccit: <%= topic_post_url(@post.topic, @post) %>

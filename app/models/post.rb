@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
     has_many :favorites, dependent: :destroy
     
     after_create :create_vote
+    after_create :mark_favorite
     
     ##The default_scope will order all posts by their created_at date, in descending order(DESC)
     default_scope { order('rank DESC') }
@@ -44,5 +45,13 @@ class Post < ActiveRecord::Base
     
     def create_vote
         user.votes.create!(value: 1, post: self )
+    end
+    
+    private
+    
+    def mark_favorite
+        user = self.user
+        Favorite.create!(post: self, user: user)
+        FavoriteMailer.new_post(user, self).deliver_now
     end
 end
