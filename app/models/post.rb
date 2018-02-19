@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
     
     ##The default_scope will order all posts by their created_at date, in descending order(DESC)
     default_scope { order('rank DESC') }
+    scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true ) }
     
     def self.ordered_by_title
         order('title ASC')

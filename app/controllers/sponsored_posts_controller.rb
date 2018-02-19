@@ -72,7 +72,7 @@ class SponsoredPostsController < ApplicationController
     end
   end
   def authorize_moderator
-    sponsored_post = Post.find(params[:id])
+    sponsored_post = SponsoredPost.find(params[:id])
     unless current_user == sponsored_post.user || current_user.admin? || current_user.moderator?
       flash[:alert] = "Only admin can proceed that action!"
       redirect_to [sponsored_post.topic, sponsored_post]

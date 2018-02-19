@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     def new
         @user = User.new
+        @posts = @user.posts.visible_to(current_user)
     end
     
     def create
@@ -19,10 +20,16 @@ class UsersController < ApplicationController
             render :new
         end
     end
+    
     def confirm
         @user = User.new
         @user.name = params[:user][:name]
         @user.email = params[:user][:email]
         @user.password = params[:user][:password]
     end
+    
+    def show
+        @user = User.find(params[:id])
+    end
+    
 end

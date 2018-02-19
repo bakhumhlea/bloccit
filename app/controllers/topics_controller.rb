@@ -76,18 +76,16 @@ class TopicsController < ApplicationController
     end
     
     def authorize_user
-        topic = Topic.find(params[:id])
         unless current_user.admin?
             flash[:alert] = "Only admin can do that!"
-            redirect_to topic
+            redirect_to topics_path
         end
     end
     
     def authorize_moderator
-        topic = Topic.find(params[:id])
         unless current_user.admin? || current_user.moderator?
             flash[:alert] = "Only admin can do that!"
-            redirect_to topic
+            redirect_to topics_path
         end
     end
     

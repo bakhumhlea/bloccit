@@ -3,8 +3,8 @@ include RandomData
 include SessionsHelper
 
 RSpec.describe SponsoredPostsController, type: :controller do
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
-  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:my_user) { create(:user) }
+  let(:my_topic) {create(:topic) }
   let(:my_sponsored_post) { my_topic.sponsored_posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_price, user: my_user) }
   
   before do
