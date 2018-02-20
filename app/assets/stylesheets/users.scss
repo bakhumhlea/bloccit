@@ -34,3 +34,34 @@
     height:30px;
     border-radius: 50%;
 }
+.fav-post-title {
+    display: inline-block;
+    width: 70%;
+    margin: 0;
+    border-right: 3px solid #777879;
+    clear: both;
+}
+.fav-post-info {
+    display: block;
+    float: right;
+    width: 30%;
+}
+.fav-post-info div {
+    display: inline-block;
+    font-size: 11px;
+}
+.fav-post-info div p {
+    padding-top: 2px;
+}
+.fav-post-info img {
+    position: relative;
+    display: inline;
+    margin: auto 5px auto 10px;
+    bottom: 8px;
+}
+.fav-post-gravatar {
+    display:block;
+    width:34px;
+    height:34px;
+    border-radius: 50%;
+}

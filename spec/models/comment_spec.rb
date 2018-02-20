@@ -14,7 +14,7 @@ RSpec.describe Comment, type: :model do
   
   describe "attributes" do
     it "has a body and post attributes" do
-      expect(comment).to have_attributes(body: 'Comment Body', post: post)
+      expect(comment).to have_attributes(body: comment.body, post: post)
     end
   end
   describe "after_create" do

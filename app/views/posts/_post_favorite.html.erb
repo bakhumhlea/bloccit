@@ -1,0 +1,24 @@
+<div class="media">
+    <div class="media-body">
+        <div class="fav-post-title">
+            <h5><%= link_to post.title, topic_post_path(post.topic, post) %></h5>
+            <small><p>submitted <%= time_ago_in_words(post.created_at) %> ago</p></small>
+        </div>
+        <div class="fav-post-info">
+            <%= image_tag post.user.avatar_url(48), class: "fav-post-gravatar" %>
+            <div>
+                <p>
+                    <strong><span class="fav-post-info-text">
+                        Author: <%= post.user.name %>
+                    </span><br></strong>
+                    <span class="fav-post-info-text">
+                        <%= pluralize(post.votes.count, 'vote') %>
+                    </span><br>
+                    <span class="fav-post-info-text">
+                        <%= pluralize(post.comments.count, 'comment') %>
+                    </span><br>
+                </p> 
+            </div>
+        </div>
+    </div>
+</div>

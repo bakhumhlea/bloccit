@@ -21,15 +21,24 @@
 </div>
  
 <h2>Posts</h2>
-<% if @user.posts.count > 0 %>
+<% if detector(@user.posts) %>
     <%= render @user.posts %>
 <% else %>
-    <p><%= "#{@user.name} has no comment yet" %></p>
+    <p><%= "#{@user.name} has not posted yet" %></p>
 <% end %>
 
 <h2>Comments</h2>
-<% if @user.comments.count > 0 %>
+<% if detector(@user.comments) %>
     <%= render @user.comments %>
 <% else %>
-    <p><%= "#{@user.name} has no comment yet" %></p>
+    <p><%= "#{@user.name} has not commented yet" %></p>
+<% end %>
+
+<h2>Favorite Posts</h2>
+<% if detector(@user.favorites) %>
+    <% @favorite_posts.each do |favorite_post| %>
+        <%= render 'posts/post_favorite', post: favorite_post %>
+    <% end %>
+<% else %>
+    <p><%= "#{@user.name} has no favorite posts" %></p>
 <% end %>
