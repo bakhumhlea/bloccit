@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
     has_many :comments, dependent: :destroy
     has_many :votes, dependent: :destroy
     has_many :favorites, dependent: :destroy
+    has_many :favorite_posts, :through => :favorites, :source => :post
     
     before_save { self.name = name.split(' ').each{|w| w.capitalize! }.join(' ') if name.present? }
     before_save { self.email = email.downcase if email.present? }

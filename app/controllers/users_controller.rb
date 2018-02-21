@@ -30,8 +30,9 @@ class UsersController < ApplicationController
     
     def show
         @user = User.find(params[:id])
-        @favorite_posts = []
-        @user.favorites.each {|fav| @favorite_posts << Post.find(fav.post_id) }
+        @user.favorite_posts
+        ##@user.favorite_posts = []
+        ##@user.favorites.each {|fav| @user.favorite_posts << Post.find(fav.post_id) }
     end
 
 end
