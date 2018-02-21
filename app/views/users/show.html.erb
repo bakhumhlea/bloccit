@@ -28,7 +28,7 @@
 <% end %>
 
 <h2>Comments</h2>
-<% @user.comments.present?) %>
+<% if @user.comments.present? %>
     <%= render @user.comments %>
 <% else %>
     <p><%= "#{@user.name} has not commented yet" %></p>
